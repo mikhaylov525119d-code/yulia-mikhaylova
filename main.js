@@ -29,11 +29,12 @@
   const heroRv = $$('.hero .rv');
   gsap.to(heroRv, { opacity: 1, y: 0, duration: .9, stagger: .09, ease: 'power3.out', delay: .1 });
   gsap.from('.hero .arch', { clipPath: 'inset(100% 0 0 0 round 999px 999px 18px 18px)', duration: 1.2, ease: 'power3.inOut', delay: .15 });
-  gsap.from('.hero .arch img', { y: 80, scale: 1.08, duration: 1.4, ease: 'power3.out', delay: .3 });
+  gsap.from('.hero .arch img', { scale: 1.08, opacity: 0, duration: 1.4, ease: 'power3.out', delay: .3 });
   gsap.from('.arch-line', { opacity: 0, x: -14, y: 14, duration: 1, delay: .9 });
   gsap.from('.badge', { scale: 0, rotate: -90, duration: .8, ease: 'back.out(1.7)', delay: 1.1 });
-  // лёгкий параллакс фото при прокрутке
-  gsap.to('.hero .arch img', { yPercent: -6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  // лёгкий параллакс фото при прокрутке — только вниз, чтобы голова не уходила под край арки
+  gsap.fromTo('.hero .arch img', { y: 0 }, { y: 30, ease: 'none', immediateRender: false,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
   // остальные блоки появляются при прокрутке, карточки — лесенкой
   $$('.rv').filter(el => !el.closest('.hero')).forEach(el => {
