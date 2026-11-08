@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marck+Script&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/yulia-top.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -71,7 +72,7 @@
   </div>
   <div class="hero-media">
     <div class="arch-line"></div>
-    <div class="arch"><img src="assets/yulia.png" alt="Юлия Михайлова, налоговый консультант" width="466" height="1886" fetchpriority="high"></div>
+    <div class="arch"><picture><source srcset="assets/yulia-top.webp" type="image/webp"><img src="assets/yulia-top.png" alt="Юлия Михайлова, налоговый консультант" width="466" height="1037" fetchpriority="high" decoding="async"></picture></div>
     <div class="badge" aria-hidden="true">
       <svg viewBox="0 0 120 120"><defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
         <text><textPath href="#circ" textLength="286" lengthAdjust="spacing">налоговый консультант · по всей России · </textPath></text></svg>
@@ -117,7 +118,7 @@
       <a class="btn" href="https://калькулятор-налоговый.рф" target="_blank" rel="noopener">Открыть калькулятор <svg><use href="#arrow"/></svg></a>
       <div class="calc-url">калькулятор-налоговый.рф</div>
     </div>
-    <div class="phone rv"><div class="phone-in"><img src="assets/calc.png" alt="Калькулятор вычета: результат 378 300 ₽" loading="lazy" width="780" height="1688"></div></div>
+    <div class="phone rv"><div class="phone-in"><picture><source srcset="assets/calc.webp" type="image/webp"><img src="assets/calc.png" alt="Калькулятор вычета: результат 378 300 ₽" loading="lazy" width="780" height="1688"></picture></div></div>
   </div>
 </section>
 
@@ -134,7 +135,7 @@
     </ul>
     <div class="sign">Юлия Михайлова</div>
   </div>
-  <div class="about-photo rv"><div class="arch arch-sm"><img src="assets/about.jpg" alt="Юлия Михайлова" loading="lazy" width="959" height="1280"></div></div>
+  <div class="about-photo rv"><div class="arch arch-sm"><picture><source srcset="assets/about.webp" type="image/webp"><img src="assets/about.jpg" alt="Юлия Михайлова" loading="lazy" width="959" height="1280"></picture></div></div>
 </section>
 
 <!-- ============ КАК Я РАБОТАЮ ============ -->
@@ -193,8 +194,8 @@
 </footer>
 <div class="copy wrap">© Юлия Михайлова, налоговый консультант. Суммы — по правилам НК РФ на 2026 год, при ставке НДФЛ 13%.</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

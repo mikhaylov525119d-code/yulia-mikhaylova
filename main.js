@@ -25,13 +25,19 @@
   if (reduce || !window.gsap || !window.ScrollTrigger) { document.documentElement.classList.remove('js'); return; }
   gsap.registerPlugin(ScrollTrigger);
 
-  // первый экран: заголовок по строкам, фото в арке выезжает
+  // первый экран: текст появляется сразу, арка с фото — как только фото загрузилось (не дольше 1,2 с ожидания)
   const heroRv = $$('.hero .rv');
-  gsap.to(heroRv, { opacity: 1, y: 0, duration: .9, stagger: .09, ease: 'power3.out', delay: .1 });
-  gsap.from('.hero .arch', { clipPath: 'inset(100% 0 0 0 round 999px 999px 18px 18px)', duration: 1.2, ease: 'power3.inOut', delay: .15 });
-  gsap.from('.hero .arch img', { scale: 1.08, opacity: 0, duration: 1.4, ease: 'power3.out', delay: .3 });
-  gsap.from('.arch-line', { opacity: 0, x: -14, y: 14, duration: 1, delay: .9 });
-  gsap.from('.badge', { scale: 0, rotate: -90, duration: .8, ease: 'back.out(1.7)', delay: 1.1 });
+  gsap.to(heroRv, { opacity: 1, y: 0, duration: .8, stagger: .07, ease: 'power3.out' });
+  gsap.set('.hero .arch', { clipPath: 'inset(100% 0 0 0 round 999px 999px 18px 18px)' });
+  gsap.set(['.arch-line', '.badge'], { opacity: 0 });
+  const heroImg = $('.hero .arch img');
+  const loaded = heroImg.complete && heroImg.naturalWidth ? Promise.resolve() : new Promise(r => { heroImg.addEventListener('load', r, { once: true }); heroImg.addEventListener('error', r, { once: true }); });
+  Promise.race([loaded.then(() => heroImg.decode && heroImg.decode().catch(() => {})), new Promise(r => setTimeout(r, 1200))]).then(() => {
+    gsap.to('.hero .arch', { clipPath: 'inset(0% 0 0 0 round 999px 999px 18px 18px)', duration: 1, ease: 'power3.inOut' });
+    gsap.from(heroImg, { scale: 1.08, duration: 1.3, ease: 'power3.out' });
+    gsap.fromTo('.arch-line', { opacity: 0, x: -14, y: 14 }, { opacity: 1, x: 0, y: 0, duration: .9, delay: .5 });
+    gsap.fromTo('.badge', { opacity: 1, scale: 0, rotate: -90 }, { scale: 1, rotate: 0, duration: .8, ease: 'back.out(1.7)', delay: .7 });
+  });
   // лёгкий параллакс фото при прокрутке — только вниз, чтобы голова не уходила под край арки
   gsap.fromTo('.hero .arch img', { y: 0 }, { y: 30, ease: 'none', immediateRender: false,
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
