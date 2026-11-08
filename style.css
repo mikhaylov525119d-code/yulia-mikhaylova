@@ -97,7 +97,8 @@ svg { flex: none; }
 .stat .spk { width: 18px; height: 18px; color: var(--gold-2); }
 @media (min-width: 900px) {
   .stats { grid-template-columns: repeat(4, 1fr); }
-  .stat { padding: 30px 30px 28px; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; }
+  .stat { padding: 30px clamp(16px, 2.2vw, 30px) 28px; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; }
+  .stat b { font-size: clamp(30px, 3vw, 40px); }
   .stat .spk { grid-row: span 2; width: 24px; height: 24px; }
   .stat, .stat:nth-child(odd) { border-right: 1px solid rgba(246,241,231,.22); } .stat:last-child { border-right: 0; }
   .stat:nth-child(-n+2) { border-bottom: 0; }
