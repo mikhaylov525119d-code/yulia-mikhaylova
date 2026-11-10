@@ -67,10 +67,10 @@ svg { flex: none; }
 .hero-media { position: relative; justify-self: center; width: min(calc(100% - 20px), 460px); }
 .arch { position: relative; aspect-ratio: 4 / 5.2; border-radius: 999px 999px 18px 18px; overflow: hidden;
   background: linear-gradient(180deg, #c3c8b2 0%, #a7af95 60%, #959e83 100%); box-shadow: var(--shadow); }
-.arch img { position: absolute; left: 50%; top: 15%; width: 70%; height: auto; max-width: none; transform: translateX(-50%);
+.arch img { position: absolute; left: 50%; top: 9%; width: 100%; height: auto; max-width: none; transform: translateX(-50%);
   filter: saturate(.85) contrast(1.03); will-change: transform; }
 .arch picture { display: block; position: absolute; inset: 0; will-change: transform; }
-.arch-sm picture { position: static; width: 100%; height: 100%; }
+.arch-sm picture { position: absolute; inset: 0; }
 .arch-line { position: absolute; inset: -12px -12px 24px 12px; border: 1px solid var(--gold-2); border-radius: 999px 999px 18px 18px; pointer-events: none; }
 .badge { position: absolute; right: -8px; top: 20%; width: 104px; height: 104px; border-radius: 50%; background: var(--paper);
   border: 1px solid var(--line); box-shadow: var(--shadow); display: grid; place-items: center; }
@@ -120,7 +120,9 @@ h2 .spk { width: 22px; height: 22px; color: var(--gold); vertical-align: middle;
 .cards { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
 @media (min-width: 1000px) { .cards { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
 .card { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 16px 14px 16px;
-  transition: transform .3s, box-shadow .3s, border-color .3s; overflow: hidden; }
+  transition: box-shadow .3s, border-color .3s; overflow: hidden; }
+/* переход по transform включаем только после появления — иначе CSS спорит с GSAP и карточки дрожат */
+.card.in { transition: transform .3s, box-shadow .3s, border-color .3s; }
 .card::after { content: ''; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px; border-radius: 50%;
   background: radial-gradient(circle, rgba(176,146,90,.16), rgba(176,146,90,0) 70%); transition: transform .4s; }
 .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--gold-2); }
@@ -169,7 +171,7 @@ h2 .spk { width: 22px; height: 22px; color: var(--gold); vertical-align: middle;
 .sign { font-family: var(--script); font-size: 38px; color: var(--gold); margin-top: 26px; }
 .about-photo { justify-self: center; width: min(100%, 340px); }
 .arch-sm { aspect-ratio: 4 / 5; }
-.arch-sm img { position: static; transform: none; width: 100%; height: 100%; object-fit: cover; object-position: center 10%; }
+.arch-sm img { left: 0; top: 9%; transform: none; width: 100%; height: auto; }
 @media (min-width: 900px) { .about { grid-template-columns: 1.2fr .8fr; gap: 60px; } .about-photo { justify-self: end; } }
 
 /* ---------- шаги ---------- */
@@ -248,7 +250,7 @@ h2 .spk { width: 22px; height: 22px; color: var(--gold); vertical-align: middle;
 .badge { animation: popIn .7s .75s cubic-bezier(.34,1.56,.64,1) both; }
 
 /* ---------- появление при прокрутке (только если работает JS) ---------- */
-.js .rv { opacity: 0; transform: translateY(28px); }
+.js .rv:not(.in) { opacity: 0; transform: translateY(28px); }
 @media (prefers-reduced-motion: reduce) {
   .js .rv { opacity: 1; transform: none; } .badge svg:first-child, .sprig { animation: none; } html { scroll-behavior: auto; }
   .rv-h, .hero .arch, .hero .arch img, .arch-line, .badge { animation: none; }

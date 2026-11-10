@@ -33,7 +33,9 @@
   // остальные блоки появляются при прокрутке, карточки — лесенкой
   $$('.rv').filter(el => !el.closest('.hero')).forEach(el => {
     const sibs = el.parentElement.children, idx = [...sibs].indexOf(el);
+    // по окончании убираем инлайн-transform (иначе он перебивает подъём карточки при наведении) и включаем CSS-переход
     gsap.to(el, { opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: (el.matches('.card, .steps li, .stat') ? (idx % 4) * .08 : 0),
+      onComplete: () => { el.classList.add('in'); el.style.transform = ''; },
       scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
   });
 
